@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#0a0a0f">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<title>🪁 Estúdio de Pipa</title>
+<title>🪁 Estudio de Pipa</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Outfit:wght@400;600;700;900&display=swap" rel="stylesheet">
 <style>
@@ -226,7 +226,7 @@ input[type=range]{width:100%;accent-color:var(--gold);cursor:pointer}
   <div class="hd-left">
     <div class="logo-mark">🪁</div>
     <div>
-      <div class="hd-title">ESTÚDIO DE PIPA</div>
+      <div class="hd-title">ESTUDIO DE PIPA</div>
       <div class="hd-sub">Design &amp; criação de folhas</div>
     </div>
   </div>
@@ -648,6 +648,290 @@ const PATTERNS=[
         ctx.beginPath();ctx.moveTo(x+s/2,y);ctx.lineTo(x+s,y+s/2);ctx.lineTo(x+s/2,y+s);ctx.lineTo(x,y+s/2);ctx.closePath();ctx.fill();
         ctx.fillStyle=c.bg;ctx.beginPath();ctx.moveTo(x+s/2,y+s*.2);ctx.lineTo(x+s*.8,y+s/2);ctx.lineTo(x+s/2,y+s*.8);ctx.lineTo(x+s*.2,y+s/2);ctx.closePath();ctx.fill();
       }
+    }
+  }},
+
+  // ── NOVOS: CRUZ ──
+  {id:'asterisco',name:'Asterisco',cat:'cruz',fn:(ctx,w,h,c)=>{
+    fill(ctx,w,h,c.bg);const t=w*.09,cx=w/2,cy=h*.5;
+    ctx.fillStyle=c.c1;
+    [0,Math.PI/4,Math.PI/2,Math.PI*3/4].forEach(a=>{
+      ctx.save();ctx.translate(cx,cy);ctx.rotate(a);
+      ctx.fillRect(-t/2,-h*.5,t,h);ctx.restore();
+    });
+    ctx.fillStyle=c.c2;ctx.beginPath();ctx.arc(cx,cy,t*.9,0,Math.PI*2);ctx.fill();
+  }},
+  {id:'dupla_cruz_rot',name:'Cruz 45°',cat:'cruz',fn:(ctx,w,h,c)=>{
+    fill(ctx,w,h,c.bg);const t=w*.13;
+    ctx.save();ctx.translate(w/2,h*.5);ctx.rotate(Math.PI/4);
+    ctx.fillStyle=c.c1;ctx.fillRect(-t/2,-h*.65,t,h*1.3);ctx.fillRect(-w*.65,-t/2,w*1.3,t);ctx.restore();
+    ctx.save();ctx.translate(w/2,h*.5);ctx.fillStyle=c.c2;
+    ctx.fillRect(-t*.35,-h*.65,t*.7,h*1.3);ctx.fillRect(-w*.65,-t*.35,w*1.3,t*.7);ctx.restore();
+  }},
+  {id:'grade_losango',name:'Grade Losango',cat:'cruz',fn:(ctx,w,h,c)=>{
+    fill(ctx,w,h,c.bg);const t=w*.07;
+    ctx.save();ctx.translate(w/2,h*.5);ctx.rotate(Math.PI/4);
+    ctx.fillStyle=c.c1;
+    [-w*.3,0,w*.3].forEach(x=>ctx.fillRect(x-t/2,-h*.8,t,h*1.6));
+    [-h*.3,0,h*.3].forEach(y=>ctx.fillRect(-w*.8,y-t/2,w*1.6,t));
+    ctx.restore();
+  }},
+  {id:'canto_duplo',name:'Canto Duplo',cat:'cruz',fn:(ctx,w,h,c)=>{
+    fill(ctx,w,h,c.bg);
+    ctx.fillStyle=c.c1;ctx.fillRect(0,0,w*.5,h*.5);ctx.fillRect(w*.5,h*.5,w*.5,h*.5);
+    ctx.fillStyle=c.c2;ctx.fillRect(w*.5,0,w*.5,h*.5);ctx.fillRect(0,h*.5,w*.5,h*.5);
+    const t=w*.1;ctx.fillStyle=c.c3;
+    ctx.fillRect(w/2-t/2,0,t,h);ctx.fillRect(0,h/2-t/2,w,t);
+  }},
+  {id:'cruz_dupla_v2',name:'Cruz Grossa',cat:'cruz',fn:(ctx,w,h,c)=>{
+    fill(ctx,w,h,c.bg);const t=w*.2;
+    ctx.fillStyle=c.c1;ctx.fillRect(w/2-t/2,0,t,h);ctx.fillRect(0,h*.42-t/2,w,t);
+    ctx.fillStyle=c.c2;const ti=t*.35;
+    ctx.fillRect(w/2-ti/2,0,ti,h);ctx.fillRect(0,h*.42-ti/2,w,ti);
+  }},
+
+  // ── NOVOS: LISTRAS ──
+  {id:'listras_v_assym',name:'V Assimétr.',cat:'listras',fn:(ctx,w,h,c)=>{
+    ctx.fillStyle=c.c1;ctx.fillRect(0,0,w*.15,h);
+    ctx.fillStyle=c.bg;ctx.fillRect(w*.15,0,w*.5,h);
+    ctx.fillStyle=c.c2;ctx.fillRect(w*.65,0,w*.35,h);
+    ctx.fillStyle=c.c3;ctx.fillRect(w*.15,0,w*.04,h);ctx.fillRect(w*.65,0,w*.04,h);
+  }},
+  {id:'lista_degradê',name:'Centro Foco',cat:'listras',fn:(ctx,w,h,c)=>{
+    [c.c1,c.c2,c.bg,c.bg,c.c2,c.c1].forEach((col,i)=>{ctx.fillStyle=col;ctx.fillRect(i*w/6,0,w/6+1,h)});
+  }},
+  {id:'listras_h_trio',name:'Trio+Faixa',cat:'listras',fn:(ctx,w,h,c)=>{
+    ctx.fillStyle=c.c1;ctx.fillRect(0,0,w,h*.3);
+    ctx.fillStyle=c.bg;ctx.fillRect(0,h*.3,w,h*.4);
+    ctx.fillStyle=c.c2;ctx.fillRect(0,h*.7,w,h*.3);
+    ctx.fillStyle=c.c3;ctx.fillRect(0,h*.28,w,h*.04);ctx.fillRect(0,h*.68,w,h*.04);
+  }},
+  {id:'linhas_duplas',name:'Linhas Duplas',cat:'listras',fn:(ctx,w,h,c)=>{
+    fill(ctx,w,h,c.bg);const t=w*.06,g=w*.04;
+    [[h*.2,h*.24],[h*.46,h*.5],[h*.7,h*.74]].forEach(([y1,y2])=>{
+      ctx.fillStyle=c.c1;ctx.fillRect(0,y1,w,t);
+      ctx.fillStyle=c.c2;ctx.fillRect(0,y2,w,t);
+    });
+  }},
+  {id:'banda_diagonal_h',name:'Banda+H',cat:'listras',fn:(ctx,w,h,c)=>{
+    fill(ctx,w,h,c.bg);
+    ctx.fillStyle=c.c1;ctx.fillRect(0,h*.4,w,h*.2);
+    ctx.fillStyle=c.c2;
+    ctx.beginPath();ctx.moveTo(0,0);ctx.lineTo(w*.4,0);ctx.lineTo(0,h*.4);ctx.fill();
+    ctx.beginPath();ctx.moveTo(w*.6,0);ctx.lineTo(w,0);ctx.lineTo(w,h*.4);ctx.fill();
+  }},
+
+  // ── NOVOS: DIAGONAL ──
+  {id:'diag_centro',name:'Diag. Centro',cat:'diagonal',fn:(ctx,w,h,c)=>{
+    fill(ctx,w,h,c.bg);ctx.fillStyle=c.c1;
+    ctx.beginPath();ctx.moveTo(w*.2,0);ctx.lineTo(w*.8,0);ctx.lineTo(w*.6,h);ctx.lineTo(w*.4,h);ctx.fill();
+    ctx.fillStyle=c.c2;ctx.beginPath();ctx.moveTo(w*.35,0);ctx.lineTo(w*.65,0);ctx.lineTo(w*.52,h);ctx.lineTo(w*.48,h);ctx.fill();
+  }},
+  {id:'leque',name:'Leque',cat:'diagonal',fn:(ctx,w,h,c)=>{
+    fill(ctx,w,h,c.bg);const n=8,cx=w/2,cy=h*.98;
+    for(let i=0;i<n;i++){
+      ctx.fillStyle=i%2===0?c.c1:c.c2;
+      const a1=Math.PI+i*(Math.PI/n),a2=Math.PI+(i+1)*(Math.PI/n);
+      ctx.beginPath();ctx.moveTo(cx,cy);ctx.arc(cx,cy,Math.max(w,h)*1.1,a1,a2);ctx.closePath();ctx.fill();
+    }
+  }},
+  {id:'trapezio',name:'Trapézio',cat:'diagonal',fn:(ctx,w,h,c)=>{
+    fill(ctx,w,h,c.bg);
+    ctx.fillStyle=c.c1;ctx.beginPath();ctx.moveTo(w*.1,0);ctx.lineTo(w*.9,0);ctx.lineTo(w*.7,h*.5);ctx.lineTo(w*.3,h*.5);ctx.closePath();ctx.fill();
+    ctx.fillStyle=c.c2;ctx.beginPath();ctx.moveTo(w*.3,h*.5);ctx.lineTo(w*.7,h*.5);ctx.lineTo(w*.85,h);ctx.lineTo(w*.15,h);ctx.closePath();ctx.fill();
+    ctx.fillStyle=c.c3;ctx.beginPath();ctx.moveTo(0,0);ctx.lineTo(w*.1,0);ctx.lineTo(w*.3,h*.5);ctx.lineTo(w*.15,h);ctx.lineTo(0,h);ctx.closePath();ctx.fill();
+    ctx.beginPath();ctx.moveTo(w*.9,0);ctx.lineTo(w,0);ctx.lineTo(w,h);ctx.lineTo(w*.85,h);ctx.lineTo(w*.7,h*.5);ctx.closePath();ctx.fill();
+  }},
+  {id:'paralelas',name:'Paralelas Diag.',cat:'diagonal',fn:(ctx,w,h,c)=>{
+    fill(ctx,w,h,c.bg);const t=w*.15,n=5;
+    for(let i=0;i<n;i++){
+      ctx.fillStyle=i%2===0?c.c1:c.c2;
+      const off=(i-n/2)*t*1.8;
+      ctx.save();ctx.translate(w/2+off,h/2);ctx.rotate(-Math.PI/5);
+      ctx.fillRect(-t*.45,-h*1.2,t*.9,h*2.4);ctx.restore();
+    }
+  }},
+  {id:'triangulos_diag',name:'Tri. Diagonal',cat:'diagonal',fn:(ctx,w,h,c)=>{
+    fill(ctx,w,h,c.bg);
+    [[0,0,w*.5,0,0,h*.5,c.c1],[w*.5,0,w,0,w,h*.5,c.c2],[0,h*.5,w*.5,h,0,h,c.c2],[w*.5,h,w,h*.5,w,h,c.c1],[w*.25,h*.25,w*.75,h*.25,w*.5,h*.5,c.c3],[w*.25,h*.75,w*.75,h*.75,w*.5,h*.5,c.c3]].forEach(([x1,y1,x2,y2,x3,y3,col])=>{
+      ctx.fillStyle=col;ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.lineTo(x3,y3);ctx.closePath();ctx.fill();
+    });
+  }},
+  {id:'seta_dupla',name:'Seta Dupla',cat:'diagonal',fn:(ctx,w,h,c)=>{
+    fill(ctx,w,h,c.bg);ctx.fillStyle=c.c1;
+    // seta para cima
+    ctx.beginPath();ctx.moveTo(w*.5,h*.05);ctx.lineTo(w*.85,h*.45);ctx.lineTo(w*.63,h*.45);ctx.lineTo(w*.63,h*.55);ctx.lineTo(w*.37,h*.55);ctx.lineTo(w*.37,h*.45);ctx.lineTo(w*.15,h*.45);ctx.closePath();ctx.fill();
+    ctx.fillStyle=c.c2;
+    ctx.beginPath();ctx.moveTo(w*.5,h*.95);ctx.lineTo(w*.85,h*.55);ctx.lineTo(w*.63,h*.55);ctx.lineTo(w*.63,h*.45);ctx.lineTo(w*.37,h*.45);ctx.lineTo(w*.37,h*.55);ctx.lineTo(w*.15,h*.55);ctx.closePath();ctx.fill();
+  }},
+
+  // ── NOVOS: GEO ──
+  {id:'yin_yang',name:'Yin Yang',cat:'geo',fn:(ctx,w,h,c)=>{
+    const cx=w/2,cy=h*.48,r=w*.35;
+    ctx.fillStyle=c.c1;ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle=c.c2;ctx.beginPath();ctx.arc(cx,cy,r,-Math.PI/2,Math.PI/2);ctx.arc(cx,cy+r/2,r/2,Math.PI/2,-Math.PI/2,true);ctx.arc(cx,cy-r/2,r/2,-Math.PI/2,Math.PI/2);ctx.closePath();ctx.fill();
+    ctx.fillStyle=c.c1;ctx.beginPath();ctx.arc(cx,cy-r/2,r*.1,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle=c.c2;ctx.beginPath();ctx.arc(cx,cy+r/2,r*.1,0,Math.PI*2);ctx.fill();
+  }},
+  {id:'grade_hex',name:'Grade Hex.',cat:'geo',fn:(ctx,w,h,c)=>{
+    fill(ctx,w,h,c.bg);const r=w*.12,h3=r*Math.sqrt(3);
+    function hexFill(cx,cy,col){ctx.fillStyle=col;ctx.beginPath();for(let i=0;i<6;i++){const a=i*Math.PI/3;i===0?ctx.moveTo(cx+Math.cos(a)*r*.88,cy+Math.sin(a)*r*.88):ctx.lineTo(cx+Math.cos(a)*r*.88,cy+Math.sin(a)*r*.88)}ctx.closePath();ctx.fill()}
+    let row=0;for(let y=-r;y<h+r;y+=h3,row++){const offx=row%2===0?0:r*1.5;for(let x=-r*1.5+offx;x<w+r;x+=r*3){hexFill(x,y,row%2===0?c.c1:c.c2)}}
+  }},
+  {id:'teia',name:'Teia',cat:'geo',fn:(ctx,w,h,c)=>{
+    fill(ctx,w,h,c.bg);const cx=w/2,cy=h*.48;
+    ctx.strokeStyle=c.c1;ctx.lineWidth=w*.025;
+    [.12,.22,.32,.4].forEach(r=>{ctx.beginPath();ctx.arc(cx,cy,w*r,0,Math.PI*2);ctx.stroke()});
+    ctx.strokeStyle=c.c2;ctx.lineWidth=w*.018;
+    for(let i=0;i<8;i++){const a=i*Math.PI/4;ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(cx+Math.cos(a)*w*.42,cy+Math.sin(a)*w*.42);ctx.stroke()}
+  }},
+  {id:'espiral_curva',name:'Espiral Log.',cat:'geo',fn:(ctx,w,h,c)=>{
+    fill(ctx,w,h,c.bg);const cx=w/2,cy=h*.48;
+    ctx.strokeStyle=c.c1;ctx.lineWidth=w*.06;ctx.lineCap='round';
+    ctx.beginPath();
+    for(let a=0;a<Math.PI*6;a+=0.05){const r=a/20*w*.4;ctx.lineTo(cx+Math.cos(a)*r,cy+Math.sin(a)*r)}
+    ctx.stroke();
+    ctx.strokeStyle=c.c2;ctx.lineWidth=w*.025;ctx.beginPath();
+    for(let a=Math.PI;a<Math.PI*7;a+=0.05){const r=a/20*w*.4;ctx.lineTo(cx+Math.cos(a)*r,cy+Math.sin(a)*r)}
+    ctx.stroke();
+  }},
+  {id:'sol',name:'Sol',cat:'geo',fn:(ctx,w,h,c)=>{
+    fill(ctx,w,h,c.bg);const cx=w/2,cy=h*.48,n=12;
+    ctx.fillStyle=c.c1;
+    for(let i=0;i<n;i++){
+      const a=i*Math.PI*2/n;ctx.save();ctx.translate(cx,cy);ctx.rotate(a);
+      ctx.beginPath();ctx.moveTo(0,-w*.15);ctx.lineTo(w*.06,-w*.3);ctx.lineTo(-w*.06,-w*.3);ctx.closePath();ctx.fill();ctx.restore();
+    }
+    ctx.fillStyle=c.c2;ctx.beginPath();ctx.arc(cx,cy,w*.18,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle=c.c1;ctx.beginPath();ctx.arc(cx,cy,w*.11,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle=c.bg;ctx.beginPath();ctx.arc(cx,cy,w*.06,0,Math.PI*2);ctx.fill();
+  }},
+  {id:'flor',name:'Flor',cat:'geo',fn:(ctx,w,h,c)=>{
+    fill(ctx,w,h,c.bg);const cx=w/2,cy=h*.48,r=w*.28,n=6;
+    ctx.fillStyle=c.c1;
+    for(let i=0;i<n;i++){const a=i*Math.PI*2/n;ctx.beginPath();ctx.arc(cx+Math.cos(a)*r*.5,cy+Math.sin(a)*r*.5,r*.5,0,Math.PI*2);ctx.fill()}
+    ctx.fillStyle=c.c2;ctx.beginPath();ctx.arc(cx,cy,r*.35,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle=c.c3;ctx.beginPath();ctx.arc(cx,cy,r*.18,0,Math.PI*2);ctx.fill();
+  }},
+  {id:'dois_triangulos',name:'Dois Tri.',cat:'geo',fn:(ctx,w,h,c)=>{
+    fill(ctx,w,h,c.bg);
+    ctx.fillStyle=c.c1;ctx.beginPath();ctx.moveTo(w*.5,h*.06);ctx.lineTo(w*.92,h*.72);ctx.lineTo(w*.08,h*.72);ctx.closePath();ctx.fill();
+    ctx.fillStyle=c.c2;ctx.beginPath();ctx.moveTo(w*.5,h*.88);ctx.lineTo(w*.08,h*.3);ctx.lineTo(w*.92,h*.3);ctx.closePath();ctx.fill();
+    ctx.fillStyle=c.bg;ctx.beginPath();ctx.moveTo(w*.5,h*.3);ctx.lineTo(w*.67,h*.58);ctx.lineTo(w*.33,h*.58);ctx.closePath();ctx.fill();
+  }},
+  {id:'cruz_grega',name:'Cruz Grega',cat:'geo',fn:(ctx,w,h,c)=>{
+    fill(ctx,w,h,c.bg);const s=w*.28,cx=w/2,cy=h*.48;
+    ctx.fillStyle=c.c1;
+    ctx.fillRect(cx-s/2,cy-s*1.5,s,s*3);
+    ctx.fillRect(cx-s*1.5,cy-s/2,s*3,s);
+    ctx.fillStyle=c.c2;const si=s*.4;
+    ctx.fillRect(cx-si/2,cy-s*1.5,si,s*3);
+    ctx.fillRect(cx-s*1.5,cy-si/2,s*3,si);
+  }},
+  {id:'mandala',name:'Mandala',cat:'geo',fn:(ctx,w,h,c)=>{
+    fill(ctx,w,h,c.bg);const cx=w/2,cy=h*.48;
+    // aneis alternados
+    [[.38,c.c1],[.3,c.c2],[.22,c.bg],[.16,c.c1],[.1,c.c2],[.05,c.bg]].forEach(([r,col])=>{
+      ctx.fillStyle=col;ctx.beginPath();ctx.arc(cx,cy,w*r,0,Math.PI*2);ctx.fill();
+    });
+    // pétalas externas
+    ctx.fillStyle=c.c1+'99';
+    for(let i=0;i<8;i++){const a=i*Math.PI/4;ctx.save();ctx.translate(cx,cy);ctx.rotate(a);
+      ctx.beginPath();ctx.ellipse(0,-w*.3,w*.06,w*.12,0,0,Math.PI*2);ctx.fill();ctx.restore();
+    }
+  }},
+  {id:'losango_grade',name:'Losangos Grade',cat:'geo',fn:(ctx,w,h,c)=>{
+    fill(ctx,w,h,c.bg);const sz=w*.18;
+    ctx.save();ctx.translate(w/2,h*.48);ctx.rotate(Math.PI/4);
+    for(let r=-3;r<4;r++)for(let cl=-3;cl<4;cl++){
+      ctx.fillStyle=(r+cl)%2===0?c.c1:c.c2;
+      ctx.fillRect(cl*sz-sz/2,r*sz-sz/2,sz,sz);
+    }
+    ctx.restore();
+  }},
+  {id:'ampulheta',name:'Ampulheta',cat:'geo',fn:(ctx,w,h,c)=>{
+    fill(ctx,w,h,c.bg);
+    ctx.fillStyle=c.c1;ctx.beginPath();ctx.moveTo(0,0);ctx.lineTo(w,0);ctx.lineTo(w/2,h*.5);ctx.closePath();ctx.fill();
+    ctx.fillStyle=c.c2;ctx.beginPath();ctx.moveTo(0,h);ctx.lineTo(w,h);ctx.lineTo(w/2,h*.5);ctx.closePath();ctx.fill();
+    ctx.fillStyle=c.c3;ctx.beginPath();ctx.moveTo(w*.3,0);ctx.lineTo(w*.7,0);ctx.lineTo(w/2,h*.3);ctx.closePath();ctx.fill();
+    ctx.beginPath();ctx.moveTo(w*.3,h);ctx.lineTo(w*.7,h);ctx.lineTo(w/2,h*.7);ctx.closePath();ctx.fill();
+  }},
+  {id:'decagono',name:'Decágono',cat:'geo',fn:(ctx,w,h,c)=>{
+    fill(ctx,w,h,c.bg);
+    function poly(cx,cy,r,n,rot,col){ctx.fillStyle=col;ctx.beginPath();for(let i=0;i<n;i++){const a=rot+i*Math.PI*2/n;i===0?ctx.moveTo(cx+Math.cos(a)*r,cy+Math.sin(a)*r):ctx.lineTo(cx+Math.cos(a)*r,cy+Math.sin(a)*r)}ctx.closePath();ctx.fill()}
+    poly(w/2,h*.48,w*.38,10,0,c.c1);poly(w/2,h*.48,w*.28,10,Math.PI/10,c.c2);poly(w/2,h*.48,w*.18,10,0,c.c3);poly(w/2,h*.48,w*.1,10,Math.PI/10,c.bg);
+  }},
+
+  // ── NOVOS: ESPECIAL ──
+  {id:'mosaico_tri',name:'Mosaico Tri.',cat:'especial',fn:(ctx,w,h,c)=>{
+    const sz=w*.18;const cols=Math.ceil(w/sz)+1,rows=Math.ceil(h/sz)+1;const pal=[c.c1,c.c2,c.c3,c.bg];
+    for(let r=0;r<rows;r++)for(let cl=0;cl<cols;cl++){
+      const x=cl*sz,y=r*sz;
+      ctx.fillStyle=pal[(r*2+cl)%4];ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x+sz,y);ctx.lineTo(x,y+sz);ctx.closePath();ctx.fill();
+      ctx.fillStyle=pal[(r*2+cl+1)%4];ctx.beginPath();ctx.moveTo(x+sz,y+sz);ctx.lineTo(x+sz,y);ctx.lineTo(x,y+sz);ctx.closePath();ctx.fill();
+    }
+  }},
+  {id:'patchwork',name:'Patchwork',cat:'especial',fn:(ctx,w,h,c)=>{
+    const blocks=[[0,0,w*.4,h*.35,c.c1],[w*.4,0,w*.6,h*.25,c.c2],[0,h*.35,w*.55,h*.3,c.c3],[w*.55,h*.25,w*.45,h*.45,c.c1],[0,h*.65,w*.3,h*.35,c.c2],[w*.3,h*.65,w*.4,h*.35,c.bg],[w*.7,h*.7,w*.3,h*.3,c.c3]];
+    blocks.forEach(([x,y,ww,hh,col])=>{ctx.fillStyle=col;ctx.fillRect(x,y,ww,hh)});
+    ctx.strokeStyle=c.bg;ctx.lineWidth=w*.018;
+    blocks.forEach(([x,y,ww,hh])=>{ctx.strokeRect(x+2,y+2,ww-4,hh-4)});
+  }},
+  {id:'escamas',name:'Escamas',cat:'especial',fn:(ctx,w,h,c)=>{
+    fill(ctx,w,h,c.bg);const r=w*.14;
+    let row=0;for(let y=-r*.5;y<h+r;y+=r,row++){
+      const offx=row%2===0?0:r;
+      for(let x=-r+offx;x<w+r;x+=r*2){
+        ctx.fillStyle=row%2===0?c.c1:c.c2;
+        ctx.beginPath();ctx.arc(x,y,r*.95,Math.PI,0);ctx.closePath();ctx.fill();
+      }
+    }
+  }},
+  {id:'tijolo',name:'Tijolo',cat:'especial',fn:(ctx,w,h,c)=>{
+    fill(ctx,w,h,c.c1);const bw=w*.28,bh=h*.12,gap=w*.02;
+    let row=0;for(let y=0;y<h;y+=bh+gap,row++){
+      const offx=row%2===0?0:bw/2;
+      for(let x=-bw/2+offx;x<w;x+=bw+gap){
+        ctx.fillStyle=row%2===0?c.c1:c.c2;
+        ctx.fillRect(x,y,bw,bh);
+        ctx.strokeStyle=c.bg;ctx.lineWidth=gap;ctx.strokeRect(x,y,bw,bh);
+      }
+    }
+  }},
+  {id:'arco_duplo',name:'Arco Duplo',cat:'especial',fn:(ctx,w,h,c)=>{
+    fill(ctx,w,h,c.bg);
+    ctx.fillStyle=c.c1;ctx.beginPath();ctx.arc(w*.5,h*.95,w*.55,Math.PI,0);ctx.closePath();ctx.fill();
+    ctx.fillStyle=c.c2;ctx.beginPath();ctx.arc(w*.5,h*.95,w*.38,Math.PI,0);ctx.closePath();ctx.fill();
+    ctx.fillStyle=c.bg;ctx.beginPath();ctx.arc(w*.5,h*.95,w*.22,Math.PI,0);ctx.closePath();ctx.fill();
+    ctx.fillStyle=c.c3;ctx.beginPath();ctx.arc(w*.5,h*.95,w*.1,Math.PI,0);ctx.closePath();ctx.fill();
+  }},
+  {id:'piramide',name:'Pirâmide',cat:'especial',fn:(ctx,w,h,c)=>{
+    fill(ctx,w,h,c.bg);const n=5;
+    for(let i=0;i<n;i++){
+      ctx.fillStyle=[c.c1,c.c2,c.c3,c.c1,c.c2][i];
+      const pct=i/n,pct2=(i+1)/n;
+      const x1=w*pct*.45,x2=w*(1-pct*.45);
+      const x1b=w*pct2*.45,x2b=w*(1-pct2*.45);
+      ctx.beginPath();ctx.moveTo(x1,h*pct*.85);ctx.lineTo(x2,h*pct*.85);ctx.lineTo(x2b,h*pct2*.85);ctx.lineTo(x1b,h*pct2*.85);ctx.closePath();ctx.fill();
+    }
+  }},
+  {id:'folha',name:'Folha',cat:'especial',fn:(ctx,w,h,c)=>{
+    fill(ctx,w,h,c.bg);
+    ctx.fillStyle=c.c1;ctx.beginPath();
+    ctx.moveTo(w*.5,h*.05);ctx.bezierCurveTo(w*.95,h*.2,w*.95,h*.75,w*.5,h*.92);
+    ctx.bezierCurveTo(w*.05,h*.75,w*.05,h*.2,w*.5,h*.05);ctx.fill();
+    ctx.fillStyle=c.c2;ctx.beginPath();
+    ctx.moveTo(w*.5,h*.12);ctx.bezierCurveTo(w*.85,h*.25,w*.85,h*.7,w*.5,h*.85);
+    ctx.bezierCurveTo(w*.15,h*.7,w*.15,h*.25,w*.5,h*.12);ctx.fill();
+    ctx.strokeStyle=c.c3;ctx.lineWidth=w*.02;ctx.lineCap='round';
+    ctx.beginPath();ctx.moveTo(w*.5,h*.1);ctx.lineTo(w*.5,h*.88);ctx.stroke();
+    [.3,.5,.68].forEach(y=>{ctx.beginPath();ctx.moveTo(w*.5,h*y);ctx.lineTo(w*.72,h*(y-.08));ctx.stroke();ctx.beginPath();ctx.moveTo(w*.5,h*y);ctx.lineTo(w*.28,h*(y-.08));ctx.stroke()});
+  }},
+  {id:'grade_pontos',name:'Grade Pontos',cat:'especial',fn:(ctx,w,h,c)=>{
+    fill(ctx,w,h,c.bg);const sz=w*.12;
+    for(let r=0;r<Math.ceil(h/sz)+1;r++)for(let cl=0;cl<Math.ceil(w/sz)+1;cl++){
+      ctx.fillStyle=(r+cl)%2===0?c.c1:c.c2;
+      ctx.beginPath();ctx.arc(cl*sz,r*sz,sz*.3,0,Math.PI*2);ctx.fill();
     }
   }},
 
