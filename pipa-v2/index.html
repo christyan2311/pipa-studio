@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0a0a0f">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>🪁 Estúdio de Pipa</title>
+<meta name="description" content="Crie designs de pipa com padrões geométricos e bandeiras de seleções">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Outfit:wght@400;600;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header>
+  <div class="hd-left">
+    <div class="logo-mark">🪁</div>
+    <div>
+      <div class="hd-title">ESTÚDIO DE PIPA</div>
+      <div class="hd-sub">Design &amp; criação de folhas</div>
+    </div>
+  </div>
+  <div class="count-pill" id="count-pill">— padrões</div>
+</header>
+
+<div class="app">
+
+  <!-- SIDEBAR DESKTOP -->
+  <div class="sidebar">
+    <div class="sb-sec">
+      <div class="sec-lbl">Cores</div>
+      <div class="c-block"><span class="c-lbl">Fundo</span>
+        <div class="c-row"><div class="swatch"><div class="swatch-inner" id="si-bg" style="background:#1a1a2e"></div><input type="color" id="cb" value="#1a1a2e"></div><div class="presets" id="pb"></div></div>
+      </div>
+      <div class="c-block"><span class="c-lbl">Cor 1</span>
+        <div class="c-row"><div class="swatch"><div class="swatch-inner" id="si-c1" style="background:#f5c518"></div><input type="color" id="c1" value="#f5c518"></div><div class="presets" id="p1"></div></div>
+      </div>
+      <div class="c-block"><span class="c-lbl">Cor 2</span>
+        <div class="c-row"><div class="swatch"><div class="swatch-inner" id="si-c2" style="background:#e63946"></div><input type="color" id="c2" value="#e63946"></div><div class="presets" id="p2"></div></div>
+      </div>
+      <div class="c-block" style="margin-bottom:0"><span class="c-lbl">Cor 3</span>
+        <div class="c-row"><div class="swatch"><div class="swatch-inner" id="si-c3" style="background:#2a9d8f"></div><input type="color" id="c3" value="#2a9d8f"></div><div class="presets" id="p3"></div></div>
+      </div>
+    </div>
+    <div class="sb-sec">
+      <div class="sec-lbl">Logo / Imagem</div>
+      <div class="upload-zone">
+        <input type="file" id="logo-inp" accept="image/*">
+        <img id="logo-thumb" src="" alt="logo">
+        <div id="uph"><div class="uico">📁</div><p>Clique para adicionar<br>logo ao centro da pipa</p></div>
+      </div>
+      <div id="logo-ctrls" style="display:none">
+        <div class="sl-row" style="margin-top:10px"><label>Tamanho <span id="lsv">30%</span></label><input type="range" id="lsz" min="8" max="65" value="30"></div>
+        <div class="sl-row"><label>Opacidade <span id="lov">100%</span></label><input type="range" id="lop" min="10" max="100" value="100"></div>
+        <button class="btn btn-ghost" id="rm-logo" style="margin-top:8px;font-size:0.7rem;padding:7px">✕ Remover imagem</button>
+      </div>
+    </div>
+    <div class="sb-sec">
+      <div class="sec-lbl">Ações</div>
+      <div class="btns-col">
+        <button class="btn btn-rand" id="btn-rand">🎲 Aleatório</button>
+        <button class="btn btn-gold" id="btn-apply">✔ Aplicar Cores</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main-area">
+    <div class="gallery-head">
+      <h2>Galeria de Padrões</h2>
+      <div class="tabs-wrap" id="tabs">
+        <div class="tab active" data-cat="todos">Todos</div>
+        <div class="tab" data-cat="cruz">Cruz</div>
+        <div class="tab" data-cat="listras">Listras</div>
+        <div class="tab" data-cat="diagonal">Diagonal</div>
+        <div class="tab" data-cat="geo">Geométrico</div>
+        <div class="tab" data-cat="especial">Especial</div>
+        <div class="tab" data-cat="selecoes">⚽ Seleções</div>
+      </div>
+    </div>
+    <div class="pat-gallery" id="pat-gallery"></div>
+    <div class="stage">
+      <div class="pname-tag" id="pname">Cruz Dupla</div>
+      <canvas id="kite-canvas" width="520" height="620"></canvas>
+      <div class="stage-btns">
+        <button class="btn btn-dl" id="btn-dl">⬇ Baixar PNG</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FAB download mobile -->
+<button class="fab-dl" id="fab-dl" title="Baixar PNG">⬇</button>
+
+<!-- BOTTOM NAV MOBILE -->
+<nav class="mobile-nav" id="mobile-nav">
+  <button class="nav-btn active" id="nb-padroes" onclick="openSheet('padroes')">
+    <span class="nav-ico">🎨</span><span class="nav-lbl">Padrões</span>
+  </button>
+  <button class="nav-btn" id="nb-cores" onclick="openSheet('cores')">
+    <span class="nav-ico">🖌️</span><span class="nav-lbl">Cores</span>
+  </button>
+  <button class="nav-btn" id="nb-logo" onclick="openSheet('logo')">
+    <span class="nav-ico">🏷️</span><span class="nav-lbl">Logo</span>
+  </button>
+  <button class="nav-btn" id="nb-acoes" onclick="openSheet('acoes')">
+    <span class="nav-ico">⚡</span><span class="nav-lbl">Ações</span>
+  </button>
+</nav>
+
+<!-- OVERLAY -->
+<div class="sheet-overlay" id="overlay" onclick="closeSheet()"></div>
+
+<!-- BOTTOM SHEET -->
+<div class="bottom-sheet" id="bottom-sheet">
+  <div class="sh-handle"></div>
+  <div class="sh-title" id="sh-title">Padrões</div>
+  <div class="sh-body" id="sh-body"></div>
+</div>
+
+<!--
+  ORDEM DE CARREGAMENTO DOS SCRIPTS:
+  1. kite.js     — state global + geometria da pipa
+  2. patterns.js — biblioteca de padrões (PATTERNS[])
+  3. data.js     — paletas e cores pré-definidas
+  4. ui.js       — render, galeria, presets, logo, download
+  5. sheet.js    — bottom sheet mobile + init final
+-->
+<script src="js/kite.js"></script>
+<script src="js/patterns.js"></script>
+<script src="js/data.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/sheet.js"></script>
+</body>
+</html>
